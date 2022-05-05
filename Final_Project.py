@@ -12,15 +12,6 @@ df_ILs = spreadsheet.parse(sheetnames[1],skiprows=4)
 cation_abbrev = dict(zip(df_ILs["Abbreviations"],df_ILs["Names"]))
 anion_abbrev = dict(zip(df_ILs["Abbreviations.1"],df_ILs["Names.1"]))
 
-stl.title("Brennecke Group Internal IL Database")
-cation = stl.selectbox(label="Please select IL cation:",options=cation_abbrev.keys())
-anion = stl.selectbox(label="Please select IL anion:",options=anion_abbrev.keys())
-prop = stl.selectbox(label="Which property would you like to see?",options = ['Density','Viscosity'])
-dict_props = {"Density":"Density (g/cm3)","Viscosity":"Viscosity (cP)"}
-prop_column = dict_props.get(prop)
-# cation = 'bmim' ##Test case cation. Also try P2224, Pyrro14, emim
-# anion = 'Tf2N' ##Test case anion. Also try BF4, PF6, 2CNPyrro
-
 datasheet = pd.ExcelFile(f'{prop}_05-01-2020.xlsx')
 sheetnames = datasheet.sheet_names
 
@@ -45,7 +36,16 @@ def swap_columns(df, col1, col2): ##Snippet from https://www.statology.org/swap-
     df = df[col_list]
     return df
 
-#Get Density Data
+stl.title("Brennecke Group Internal IL Database")
+cation = stl.selectbox(label="Please select IL cation:",options=cation_abbrev.keys())
+anion = stl.selectbox(label="Please select IL anion:",options=anion_abbrev.keys())
+prop = stl.selectbox(label="Which property would you like to see?",options = ['Density','Viscosity'])
+dict_props = {"Density":"Density (g/cm3)","Viscosity":"Viscosity (cP)"}
+prop_column = dict_props.get(prop)
+# cation = 'bmim' ##Test case cation. Also try P2224, Pyrro14, emim
+# anion = 'Tf2N' ##Test case anion. Also try BF4, PF6, 2CNPyrro
+
+#Get Property Data
 il_input = f'[{cation}][{anion}]'
 il_family = get_il_family(cation)
 stl.markdown(f"This IL's full name is {cation_abbrev.get(cation)} {anion_abbrev.get(anion)}.")
