@@ -28,11 +28,11 @@ def get_il_family(cation):
     sheet_index = None
 
     for j in sheetnames[2:]: 
-        if j[8:].lower() in cation_abbrev.get(cation): 
+         if j[8:].lower() in cation_abbrev.get(cation): 
             sheet_index = (sheetnames.index(j))
-        else: 
-            sheet_index = 9
-            
+        elif cation=='MTBD' or cation=='TMG':
+            sheet_index = 8
+        else: sheet_index = 9         
     
     y = datasheet.parse(sheetnames[sheet_index],skiprows=2)
     y = y.dropna(axis=0,how='all')
