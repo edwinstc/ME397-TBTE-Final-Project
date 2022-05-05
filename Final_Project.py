@@ -19,7 +19,7 @@ def get_il_family(cation):
          if j[8:].lower() in cation_abbrev.get(cation): 
             sheet_index = (sheetnames.index(j))
          #elif cation=='MTBD' or cation=='TMG':
-            sheet_index = 8
+            #sheet_index = 8
          #else: sheet_index = 9         
     
     y = datasheet.parse(sheetnames[sheet_index],skiprows=2)
