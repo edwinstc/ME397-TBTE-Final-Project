@@ -47,7 +47,7 @@ def swap_columns(df, col1, col2): ##Snippet from https://www.statology.org/swap-
 #Get Density Data
 il_input = f'[{cation}][{anion}]'
 il_family = get_il_family(cation)
-stl.write(f"This IL's full name is {cation_abbrev.get(cation)} {anion_abbrev.get(anion)}")
+stl.write(f"This IL's full name is **{cation_abbrev.get(cation)} {anion_abbrev.get(anion)}**.")
           
 if il_input in list(il_family['IL']):
     il_dens = il_family.loc[il_family["IL"] == il_input][['T /K',f'{prop_column}','Full Reference']]
