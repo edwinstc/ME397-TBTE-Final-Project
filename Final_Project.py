@@ -63,7 +63,7 @@ if il_input in list(il_family['IL']):
     sns.scatterplot(data=il_dens,x='T /K',y = f'{prop_column}', hue = 'Ref').set(title=f'{prop} of {il_input}')
     stl.pyplot(fig)
     stl.write('## Data:')
-    stl.write(il_dens)
+    stl.write(il_dens.drop('Short Ref')
     stl.markdown('## References')
     stl.write(*unique_refs)
 else:
