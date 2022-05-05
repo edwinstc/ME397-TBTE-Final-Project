@@ -12,9 +12,6 @@ df_ILs = spreadsheet.parse(sheetnames[1],skiprows=4)
 cation_abbrev = dict(zip(df_ILs["Abbreviations"],df_ILs["Names"]))
 anion_abbrev = dict(zip(df_ILs["Abbreviations.1"],df_ILs["Names.1"]))
 
-datasheet = pd.ExcelFile(f'{prop}_05-01-2020.xlsx')
-sheetnames = datasheet.sheet_names
-
 def get_il_family(cation):
     sheet_index = None
 
@@ -42,6 +39,10 @@ anion = stl.selectbox(label="Please select IL anion:",options=anion_abbrev.keys(
 prop = stl.selectbox(label="Which property would you like to see?",options = ['Density','Viscosity'])
 dict_props = {"Density":"Density (g/cm3)","Viscosity":"Viscosity (cP)"}
 prop_column = dict_props.get(prop)
+
+datasheet = pd.ExcelFile(f'{prop}_05-01-2020.xlsx')
+sheetnames = datasheet.sheet_names
+
 # cation = 'bmim' ##Test case cation. Also try P2224, Pyrro14, emim
 # anion = 'Tf2N' ##Test case anion. Also try BF4, PF6, 2CNPyrro
 
