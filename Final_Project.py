@@ -55,7 +55,7 @@ if il_input in list(il_family['IL']):
     il_dens = il_family.loc[il_family["IL"] == il_input][['T /K',f'{prop_column}','Full Reference']]
     il_dens["Ref"] = None
     for x in list(il_dens.index): 
-        if il_dens["Full Reference"][x] not None:
+        if il_dens["Full Reference"][x] != None:
             il_dens['Ref'][x] = il_dens["Full Reference"][x].split(", ")[0] +" et al."
         else:
              il_dens['Ref'][x] = il_dens["Full Reference"][x-1].split(", ")[0] +" et al."
