@@ -1,3 +1,4 @@
+from math import nan
 import streamlit as stl
 import pandas as pd
 import seaborn as sns
@@ -54,8 +55,13 @@ stl.markdown(f"This IL's full name is {cation_abbrev.get(cation)} {anion_abbrev.
 if il_input in list(il_family['IL']):
     il_dens = il_family.loc[il_family["IL"] == il_input][['T /K',f'{prop_column}','Full Reference']]
     il_dens["Ref"] = None
-    for x in list(il_dens.index): il_dens['Ref'][x] = il_dens["Full Reference"][x].split(", ")[0] +" et al."
+    for x in list(il_dens.index): 
+        if il_dens["Full Reference"][x] not nan:
+            il_dens['Ref'][x] = il_dens["Full Reference"][x].split(", ")[0] +" et al."
+        else:
+             il_dens['Ref'][x] = il_dens["Full Reference"][x-1].split(", ")[0] +" et al."
     swap_columns(il_dens,f'{prop_column}','Ref')
+    
     unique_refs = il_dens["Full Reference"].unique()
     #Get correlation
     # slope, intercept, r_value, p_value, std_err = stats.linregress(il_dens['T /K'],il_dens['Density (g/cm3)'])
@@ -64,7 +70,7 @@ if il_input in list(il_family['IL']):
     sns.scatterplot(data=il_dens,x='T /K',y = f'{prop_column}', hue = 'Ref').set(title=f'{prop} of {il_input}')
     stl.pyplot(fig)
     stl.write('## Data:')
-    stl.write(il_dens.drop(columns='Ref'))
+    stl.write(il_dens.drop('Short Ref'))
     stl.markdown('## References')
     stl.write(*unique_refs)
 else:
