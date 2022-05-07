@@ -47,7 +47,7 @@ sheetnames = datasheet.sheet_names
 # anion = 'Tf2N' ##Test case anion. Also try BF4, PF6, 2CNPyrro
 
 #Get Property Data
-il_input = f'[{cation}][{anion}]'
+il_input = "f[{cation}][{anion}]"
 il_family = get_il_family(cation)
 stl.markdown(f"This IL's full name is {cation_abbrev.get(cation)} {anion_abbrev.get(anion)}.")
           
@@ -67,10 +67,11 @@ if il_input in list(il_family['IL']):
        
     fig = plt.figure(figsize=(10,4))
     sns.scatterplot(data=il_dens,x='T /K',y = f'{prop_column}', hue = 'Ref').set(title=f'{prop} of {il_input}')
-    stl.pyplot(fig)
-    stl.write('## Data:')
-    stl.write(il_dens.drop('Short Ref'))
-    stl.markdown('## References')
-    stl.write(*unique_refs)
+    plt.show()
+    # stl.pyplot(fig)
+    # stl.write('## Data:')
+    # stl.write(il_dens.drop('Short Ref'))
+    # stl.markdown('## References')
+    # stl.write(*unique_refs)
 else:
     stl.write(f"{il_input} is currently **not** in our database. :confused: Try [ILthermo](https://ilthermo.boulder.nist.gov/)! Remember they use full IL name! :smile:")
