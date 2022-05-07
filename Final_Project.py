@@ -47,7 +47,7 @@ sheetnames = datasheet.sheet_names
 # anion = 'Tf2N' ##Test case anion. Also try BF4, PF6, 2CNPyrro
 
 #Get Property Data
-il_input = "f[{cation}][{anion}]"
+il_input = f[{cation}][{anion}]
 il_family = get_il_family(cation)
 stl.markdown(f"This IL's full name is {cation_abbrev.get(cation)} {anion_abbrev.get(anion)}.")
           
