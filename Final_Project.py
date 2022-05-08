@@ -2,6 +2,7 @@ import streamlit as stl
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+import numpy as np
 # from scipy import stats ##Use to implement trendline calculation
 
 spreadsheet = pd.ExcelFile('Density_05-01-2020.xlsx')
@@ -18,7 +19,7 @@ def get_il_family(cation):
     for j in sheetnames[2:]: 
          if j[8:].lower() in cation_abbrev.get(cation): 
             sheet_index = (sheetnames.index(j))
-        #  elif cation=='MTBD' or cation=='TMG':
+          elif cation=='MTBD' or cation=='TMG':
             #sheet_index = 8
          #else: sheet_index = 9         
     
@@ -53,9 +54,10 @@ stl.markdown(f"This IL's full name is {cation_abbrev.get(cation)} {anion_abbrev.
           
 if il_input in list(il_family['IL']):
     il_dens = il_family.loc[il_family["IL"] == il_input][['T /K',f'{prop_column}','Full Reference']]
+    il_dens.replace(np.nan,None,inplace=True)
     il_dens["Ref"] = None
     for x in list(il_dens.index): 
-        if il_dens["Full Reference"][x] != []:
+        if il_dens["Full Reference"][x] != None:
             il_dens['Ref'][x] = il_dens["Full Reference"][x].split(", ")[0] +" et al."
         else:
              il_dens['Ref'][x] = il_dens["Full Reference"][x-1].split(", ")[0] +" et al."
