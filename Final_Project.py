@@ -69,7 +69,7 @@ if il_input in list(il_family['IL']):
     plt.show()
     stl.pyplot(fig)
     stl.write('## Data:')
-    stl.write(il_dens.drop('Ref',axis=1,index=False))
+    stl.write(il_dens.drop('Ref',axis=1))
     stl.markdown('## References')
     stl.write(*unique_refs)
 else:
