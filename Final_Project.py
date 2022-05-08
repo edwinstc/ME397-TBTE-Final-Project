@@ -66,11 +66,10 @@ if il_input in list(il_family['IL']):
        
     fig = plt.figure(figsize=(10,4))
     sns.scatterplot(data=il_dens,x='T /K',y = f'{prop_column}', hue = 'Ref').set(title=f'{prop} of {il_input}')
-    plt.show()
     stl.pyplot(fig)
     stl.write('## Data:')
     stl.write(il_dens.drop('Ref',axis=1))
     stl.markdown('## References')
-    stl.write(*unique_refs)
+    for j in unique_refs: stl.write(j)
 else:
     stl.write(f"{il_input} is currently **not** in our database. :confused: Try [ILthermo](https://ilthermo.boulder.nist.gov/)! Remember they use full IL name! :smile:")
