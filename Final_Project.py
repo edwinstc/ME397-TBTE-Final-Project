@@ -77,7 +77,7 @@ if il_input in list(il_family['IL']):
     
     unique_refs = il_dens["Full Reference"].unique()
  
-    fig = sns.scatterplot(data=il_dens,x='T /K',y = f'{prop_column}', hue = 'Ref').set(title=f'{prop} of {il_input}')
+    fig = sns.lmplot(data=il_dens,x='T /K',y = f'{prop_column}', hue = 'Ref', fit_reg=False).set(title=f'{prop} of {il_input}')
     stl.pyplot(fig)
     stl.write('## Line Equations:')
     display_regs(il_dens,f'{prop_column}')
