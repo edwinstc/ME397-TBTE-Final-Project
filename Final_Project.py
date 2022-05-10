@@ -34,7 +34,6 @@ def swap_columns(df, col1, col2): ##Snippet from https://www.statology.org/swap-
     return df
 
 def display_regs(df,prop_col):
-    T='T'
     for k in df['Full Reference'].unique():
         short_ref = k.split(", ")[0]
         #Figure out which type of fit to use
@@ -48,11 +47,11 @@ def display_regs(df,prop_col):
         model = LinearRegression().fit(X,Y)
         #Choose type of equation to display
         if prop_col=='Density (g/cm3)':
-            eqn = f'\u03c1_({short_ref})={model.coef_[0]:.4e}*T+{model.intercept_:.4f}'
+            eqn = f'\u03c1_{short_ref}={model.coef_[0]:.4e}*T+{model.intercept_:.4f}'
         else:
-            eqn = f'ln(\u03bc_({short_ref})=$\frac{1000*model.coef_[0]:.4f}{T}$+{model.intercept_:.4f}'
+            eqn = f'ln(\u03bc_{short_ref}={1000*model.coef_[0]:.4f}/T+{model.intercept_:.4f}'
         #Display equation
-        stl.latex(eqn)
+        stl.write(eqn)
 
 #Make webapp inputs
 stl.title("Brennecke Group Internal IL Database")
