@@ -77,8 +77,9 @@ if il_input in list(il_family['IL']):
        
     # fig = plt.figure(figsize=(10,4))
     fig = sns.lmplot(data=il_dens,x='T /K',y = f'{prop_column}', hue = 'Ref', ci=False).set(title=f'{prop} of {il_input}')
-    display_regs(il_dens,f'{prop_column}')
     stl.pyplot(fig)
+    stl.write('## Line Equations:')
+    display_regs(il_dens,f'{prop_column}')
     stl.write('## Data:')
     stl.write(il_dens.drop('Ref',axis=1))
     stl.markdown('## References')
