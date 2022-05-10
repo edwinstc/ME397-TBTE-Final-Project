@@ -36,16 +36,19 @@ def swap_columns(df, col1, col2): ##Snippet from https://www.statology.org/swap-
 def display_regs(df,prop_col):
     for k in df['Full Reference'].unique():
         short_ref = k.split(", ")[0]
-        eqn = None
         if prop_col=='Density (g/cm3)':
             Y = np.array(df.loc[df['Full Reference']==k][f'{prop_col}'])
             X = np.array(df.loc[df['Full Reference']==k]['T /K']).reshape(-1,1)
-            eqn = f'\u03c1_{short_ref}={model.coef_[0]:.4e}*T+{model.intercept_:.4f}'
+            
         else:
             Y = np.array(np.log(df.loc[df['Full Reference']==k][f'{prop_col}']))
             X = np.array(1000/(df.loc[df['Full Reference']==k]['T /K'])).reshape(-1,1)
-            eqn = f'ln(\u03bc_{short_ref})={model.coef_[0]:.4e}*1000/T+{model.intercept_:.4f}'
+            
         model = LinearRegression().fit(X,Y)
+        if prop_col=='Density (g/cm3)':
+            eqn = f'\u03c1_{short_ref}={model.coef_[0]:.4e}*T+{model.intercept_:.4f}'
+        else:
+            eqn = f'ln(\u03bc_{short_ref})={model.coef_[0]:.4e}*1000/T+{model.intercept_:.4f}'
 
 #Make webapp inputs
 stl.title("Brennecke Group Internal IL Database")
