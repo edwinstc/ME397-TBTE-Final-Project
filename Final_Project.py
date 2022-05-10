@@ -33,7 +33,8 @@ def swap_columns(df, col1, col2): ##Snippet from https://www.statology.org/swap-
     df = df[col_list]
     return df
 
-for k in df['Full Reference'].unique():
+def display_regs(df,prop_col):
+    for k in df['Full Reference'].unique():
         short_ref = k.split(", ")[0]
         if prop_col=='Density (g/cm3)':
             Y = np.array(df.loc[df['Full Reference']==k][f'{prop_col}'])
