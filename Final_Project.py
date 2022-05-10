@@ -51,7 +51,7 @@ def display_regs(df,prop_col):
         else:
             eqn = f'ln(\u03bc_{short_ref})={model.coef_[0]:.4f}*1000/T+{model.intercept_:.4f}'
         #Display equation
-        stl.write(eqn)
+        stl.latex(eqn)
 
 #Make webapp inputs
 stl.title("Brennecke Group Internal IL Database")
