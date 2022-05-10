@@ -33,20 +33,17 @@ def swap_columns(df, col1, col2): ##Snippet from https://www.statology.org/swap-
     df = df[col_list]
     return df
 
-def display_regs(df,prop_col):
-    for k in df['Full Reference'].unique():
+for k in df['Full Reference'].unique():
         short_ref = k.split(", ")[0]
         if prop_col=='Density (g/cm3)':
             Y = np.array(df.loc[df['Full Reference']==k][f'{prop_col}'])
             X = np.array(df.loc[df['Full Reference']==k]['T /K']).reshape(-1,1)
             eqn = f'\u03c1_{short_ref}={model.coef_[0]:.4e}*T+{model.intercept_:.4f}'
         else:
-            Y = 1/np.array(1/df.loc[df['Full Reference']==k][f'{prop_col}'])
-            X = np.array(np.exp(df.loc[df['Full Reference']==k]['T /K']).reshape(-1,1))
-            eqn = f'ln(\u03bc_{short_ref})={model.coef_[0]:.4e}*1/T+{model.intercept_:.4f}'
+            Y = np.array(np.log(df.loc[df['Full Reference']==k][f'{prop_col}']))
+            X = np.array(1000/(df.loc[df['Full Reference']==k]['T /K'])).reshape(-1,1)
+            eqn = f'ln(\u03bc_{short_ref})={model.coef_[0]:.4e}*1000/T+{model.intercept_:.4f}'
         model = LinearRegression().fit(X,Y)
-        stl.write(eqn)
-        
 
 #Make webapp inputs
 stl.title("Brennecke Group Internal IL Database")
