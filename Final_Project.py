@@ -34,6 +34,7 @@ def swap_columns(df, col1, col2): ##Snippet from https://www.statology.org/swap-
     return df
 
 def display_regs(df,prop_col):
+    T='T'
     for k in df['Full Reference'].unique():
         short_ref = k.split(", ")[0]
         #Figure out which type of fit to use
