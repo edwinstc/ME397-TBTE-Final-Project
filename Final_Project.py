@@ -77,9 +77,9 @@ if il_input in list(il_family['IL']):
        
     # fig = plt.figure(figsize=(10,4))
     if prop=='Density':
-        logy=false
+        logy= False
     else:
-        logy=true
+        logy= True
     fig = sns.lmplot(data=il_dens,x='T /K',y = f'{prop_column}', hue = 'Ref', ci=False,logy=logy).set(title=f'{prop} of {il_input}')
     stl.pyplot(fig)
     stl.write('## Line Equations:')
