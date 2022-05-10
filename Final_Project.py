@@ -50,9 +50,9 @@ def display_regs(df,prop_col):
         if prop_col=='Density (g/cm3)':
             eqn = fr'\u03c1_({short_ref})={model.coef_[0]:.4e}*T+{model.intercept_:.4f}'
         else:
-            eqn = fr'ln(\u03bc_({short_ref})=\frac{1000*model.coef_[0]:.4f}{T}+{model.intercept_:.4f}'
+            eqn = f'ln(\u03bc_({short_ref})=\frac{1000*model.coef_[0]:.4f}{T}+{model.intercept_:.4f}'
         #Display equation
-        stl.write(eqn)
+        stl.latex(eqn)
 
 #Make webapp inputs
 stl.title("Brennecke Group Internal IL Database")
