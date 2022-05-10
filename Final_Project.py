@@ -35,11 +35,17 @@ def swap_columns(df, col1, col2): ##Snippet from https://www.statology.org/swap-
 
 def display_regs(df,prop_col):
     for k in df['Full Reference'].unique():
-        Y = np.array(df.loc[df['Full Reference']==k][f'{prop_col}'])
-        X = np.array(df.loc[df['Full Reference']==k]['T /K']).reshape(-1,1)
         short_ref = k.split(", ")[0]
+        if prop_col=='Density (g/cm3)':
+            Y = np.array(df.loc[df['Full Reference']==k][f'{prop_col}'])
+            X = np.array(df.loc[df['Full Reference']==k]['T /K']).reshape(-1,1)
+            eqn = f'\u03c1_{short_ref}={model.coef_[0]:.4e}*T+{model.intercept_:.4f}'
+        else:
+            Y = 1/np.array(1/df.loc[df['Full Reference']==k][f'{prop_col}'])
+            X = np.array(np.exp(df.loc[df['Full Reference']==k]['T /K']).reshape(-1,1))
+            eqn = f'ln(\u03bc_{short_ref})={model.coef_[0]:.4e}*1/T+{model.intercept_:.4f}'
         model = LinearRegression().fit(X,Y)
-        stl.write(f'\u03c1_{short_ref}={model.coef_[0]:.4e}*T+{model.intercept_:.4f}')
+        stl.write(eqn)
         
 
 #Make webapp inputs
@@ -72,15 +78,11 @@ if il_input in list(il_family['IL']):
     swap_columns(il_dens,f'{prop_column}','Ref')
     
     unique_refs = il_dens["Full Reference"].unique()
-    #Get correlation
-    # slope, intercept, r_value, p_value, std_err = stats.linregress(il_dens['T /K'],il_dens['Density (g/cm3)'])
-       
-    # fig = plt.figure(figsize=(10,4))
-    if prop=='Density':
-        logy= False
-    else:
-        logy= True
-    fig = sns.lmplot(data=il_dens,x='T /K',y = f'{prop_column}', hue = 'Ref', ci=False,logy=logy).set(title=f'{prop} of {il_input}')
+  
+
+
+    fig = sns.scatterplot(data=il_dens,x='T /K',y = f'{prop_column}', hue = 'Ref').set(title=f'{prop} of {il_input}') 
+    
     stl.pyplot(fig)
     stl.write('## Line Equations:')
     display_regs(il_dens,f'{prop_column}')
@@ -90,4 +92,4 @@ if il_input in list(il_family['IL']):
     for j in unique_refs: stl.write(j)
 else:
     stl.write(f"{il_input} is currently **not** in our database. :confused: Try [ILthermo](https://ilthermo.boulder.nist.gov/)! Remember they use full IL name! :smile:")
-# %%
+
