@@ -76,7 +76,7 @@ if il_input in list(il_family['IL']):
     # slope, intercept, r_value, p_value, std_err = stats.linregress(il_dens['T /K'],il_dens['Density (g/cm3)'])
        
     # fig = plt.figure(figsize=(10,4))
-    if prop='Density':
+    if prop=='Density':
         logy=false
     else:
         logy=true
