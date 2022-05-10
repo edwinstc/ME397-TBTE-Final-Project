@@ -76,10 +76,8 @@ if il_input in list(il_family['IL']):
     swap_columns(il_dens,f'{prop_column}','Ref')
     
     unique_refs = il_dens["Full Reference"].unique()
-  
-
-
-    fig = sns.scatterplot(x=il_dens['T /K'],y = il_dens[f'{prop_column}'], hue = il_dens['Ref']).set(title=f'{prop} of {il_input}') 
+ 
+    fig = sns.scatterplot(data=il_dens,x='T /K',y = f'{prop_column}', hue = 'Ref').set(title=f'{prop} of {il_input}')
     stl.pyplot(fig)
     stl.write('## Line Equations:')
     display_regs(il_dens,f'{prop_column}')
