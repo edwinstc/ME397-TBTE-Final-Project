@@ -79,8 +79,7 @@ if il_input in list(il_family['IL']):
   
 
 
-    fig = sns.scatterplot(data=il_dens,x='T /K',y = f'{prop_column}', hue = 'Ref').set(title=f'{prop} of {il_input}') 
-    
+    fig = sns.scatterplot(x=il_dens['T /K'],y = il_dens[f'{prop_column}'], hue = 'Ref').set(title=f'{prop} of {il_input}') 
     stl.pyplot(fig)
     stl.write('## Line Equations:')
     display_regs(il_dens,f'{prop_column}')
