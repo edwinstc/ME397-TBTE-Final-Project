@@ -48,9 +48,9 @@ def display_regs(df,prop_col):
         model = LinearRegression().fit(X,Y)
         #Choose type of equation to display
         if prop_col=='Density (g/cm3)':
-            eqn = fr'\u03c1_({short_ref})={model.coef_[0]:.4e}*T+{model.intercept_:.4f}'
+            eqn = f'\u03c1_({short_ref})={model.coef_[0]:.4e}*T+{model.intercept_:.4f}'
         else:
-            eqn = f'ln(\u03bc_({short_ref})=\frac{1000*model.coef_[0]:.4f}{T}+{model.intercept_:.4f}'
+            eqn = f'ln(\u03bc_({short_ref})=$\frac{1000*model.coef_[0]:.4f}{T}$+{model.intercept_:.4f}'
         #Display equation
         stl.latex(eqn)
 
