@@ -76,7 +76,11 @@ if il_input in list(il_family['IL']):
     # slope, intercept, r_value, p_value, std_err = stats.linregress(il_dens['T /K'],il_dens['Density (g/cm3)'])
        
     # fig = plt.figure(figsize=(10,4))
-    fig = sns.lmplot(data=il_dens,x='T /K',y = f'{prop_column}', hue = 'Ref', ci=False).set(title=f'{prop} of {il_input}')
+    if prop='Density':
+        logy=false
+    else:
+        logy=true
+    fig = sns.lmplot(data=il_dens,x='T /K',y = f'{prop_column}', hue = 'Ref', ci=False,logy=logy).set(title=f'{prop} of {il_input}')
     stl.pyplot(fig)
     stl.write('## Line Equations:')
     display_regs(il_dens,f'{prop_column}')
