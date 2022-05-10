@@ -49,7 +49,7 @@ def display_regs(df,prop_col):
         if prop_col=='Density (g/cm3)':
             eqn = f'\u03c1_{short_ref}={model.coef_[0]:.4e}*T+{model.intercept_:.4f}'
         else:
-            eqn = f'ln(\u03bc_{short_ref})={model.coef_[0]:.4e}*1000/T+{model.intercept_:.4f}'
+            eqn = f'ln(\u03bc_{short_ref})={model.coef_[0]:.4f}*1000/T+{model.intercept_:.4f}'
         #Display equation
         stl.write(eqn)
 
